@@ -94,3 +94,14 @@ This is the place for you to write reflections:
     Rust tidak mengizinkan modifikasi variabel static secara langsung seperti java karena Rust menekankan memory safety dan thread safety. Jika variabel static bisa diubah secara bebas, akan race condition ketika diakses beberapa thread sekaligus. Oleh karena itu, di Rust memakai lazy_static agar akses dan modifikasi terhadap data global tetap terkontrol dan aman.
 
 #### Reflection Subscriber-2
+1. Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.
+   
+   Saya telah mengamati src/lib.rs. File ini adalah fondasi aplikasi yang menyediakan konfigurasi aplikasi, HTTP client global, dan format error API yang digunakan aplikasi. Pada file ini digunakan crate lazy_static untuk mendefinisikan variabel static REQWEST_CLIENT agar request HTTP bisa dilakukan secara efisien tanpa membuat cleint baru tiap kali dan APP_CONFIG untuk membuat konfigurasi aplikasi dari nilai default atau environment variable. File ini juga mendefinisikan struktur ErrorResponse dan compose_error_response untuk menghasilkan respons error bentuk JSON yang konsisten.
+
+2. Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+
+    Dengan observer pattern, publisher hanya perlu menyimpan data subscriber dan mengirim notifikasi ke semuanya tanpa perlu tahu detail implementasinya. Hal ini mempermudah penambahan banyak instance receiver karena subscriber baru hanya perlu melakukan subscribe. Namun jika ada lebih dari satu main app, tiap publisher akan punya daftar subscriber sendiri sehingga perlu mekanisme tambahan agar notifikasi tetap sinkron.
+
+3. Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+
+   Untuk sekarang saya belum coba membuat test baru di Postman collection.
